@@ -328,3 +328,150 @@ OpenAPI sözleşmesi.
 
 Bu yapı ile ilerlerken kural basit:
 **HTTP konuşur → Domain karar verir → Infra uygular.**
+
+
+
+# Strucutre
+
+ai-backend-go/
+├─ go.mod
+├─ go.sum
+├─ Makefile
+├─ README.md
+├─ .gitignore
+├─ .env.example
+│
+├─ cmd/
+│  └─ server/
+│     └─ main.go
+│
+├─ internal/
+│  ├─ app/
+│  │  ├─ app.go
+│  │  ├─ deps.go
+│  │  ├─ shutdown.go
+│  │  └─ health.go
+│  │
+│  ├─ config/
+│  │  ├─ config.go
+│  │  ├─ load.go
+│  │  └─ validate.go
+│  │
+│  ├─ http/
+│  │  ├─ handlers/
+│  │  │  ├─ chat_handler.go
+│  │  │  ├─ users_handler.go
+│  │  │  ├─ usage_handler.go
+│  │  │  └─ health_handler.go
+│  │  │
+│  │  ├─ middleware/
+│  │  │  ├─ request_id.go
+│  │  │  ├─ logging.go
+│  │  │  ├─ recover.go
+│  │  │  ├─ auth.go
+│  │  │  ├─ rate_limit.go
+│  │  │  └─ cors.go
+│  │  │
+│  │  ├─ routes/
+│  │  │  ├─ routes.go
+│  │  │  └─ v1.go
+│  │  │
+│  │  └─ httpx/
+│  │     ├─ response.go
+│  │     ├─ errors.go
+│  │     └─ bind.go
+│  │
+│  ├─ domain/
+│  │  ├─ chat/
+│  │  │  ├─ model.go
+│  │  │  ├─ service.go
+│  │  │  ├─ repository.go
+│  │  │  └─ ports.go
+│  │  │
+│  │  ├─ users/
+│  │  │  ├─ model.go
+│  │  │  ├─ service.go
+│  │  │  ├─ repository.go
+│  │  │  └─ ports.go
+│  │  │
+│  │  └─ usage/
+│  │     ├─ model.go
+│  │     ├─ service.go
+│  │     ├─ repository.go
+│  │     └─ ports.go
+│  │
+│  ├─ infra/
+│  │  ├─ db/
+│  │  │  └─ postgres/
+│  │  │     ├─ db.go
+│  │  │     ├─ tx.go
+│  │  │     ├─ migrations.go
+│  │  │     ├─ chat_repo.go
+│  │  │     ├─ users_repo.go
+│  │  │     └─ usage_repo.go
+│  │  │
+│  │  ├─ cache/
+│  │  │  └─ redis/
+│  │  │     ├─ client.go
+│  │  │     ├─ ratelimit_store.go
+│  │  │     └─ session_store.go
+│  │  │
+│  │  └─ llm/
+│  │     └─ openai/
+│  │        ├─ client.go
+│  │        ├─ mapper.go
+│  │        └─ retry.go
+│  │
+│  ├─ jobs/
+│  │  ├─ worker.go
+│  │  ├─ scheduler.go
+│  │  ├─ embeddings_job.go
+│  │  └─ summarizer_job.go
+│  │
+│  ├─ observability/
+│  │  ├─ logger.go
+│  │  ├─ metrics.go
+│  │  └─ tracing.go
+│  │
+│  └─ shared/
+│     ├─ errors/
+│     │  ├─ errors.go
+│     │  └─ http_mapping.go
+│     ├─ validate/
+│     │  ├─ validate.go
+│     │  └─ rules.go
+│     ├─ id/
+│     │  └─ id.go
+│     └─ timeutil/
+│        └─ timeutil.go
+│
+├─ migrations/
+│  ├─ 0001_init.sql
+│  ├─ 0002_chat.sql
+│  ├─ 0003_users.sql
+│  └─ 0004_usage.sql
+│
+├─ api/
+│  └─ openapi.yaml
+│
+├─ configs/
+│  ├─ dev.env
+│  └─ prod.env
+│
+├─ scripts/
+│  ├─ dev.sh
+│  ├─ test.sh
+│  ├─ lint.sh
+│  └─ migrate.sh
+│
+├─ docs/
+│  ├─ architecture.md
+│  ├─ runbook.md
+│  └─ decisions/
+│     └─ 0001_structure.md
+│
+└─ test/
+   └─ integration/
+      ├─ chat_test.go
+      ├─ users_test.go
+      └─ usage_test.go
